@@ -1,8 +1,14 @@
 - name: Download Jira Installer
   get_url:
     url: "{{ jira_installer_url }}"
-    dest: /tmp/
+    dest: "{{ jira_installation_dir}}"
 - name: Make Jira Installer executable
   file:
-    dest: "/tmp/{{ jira_installer_name }}"
+    dest: "{{ jira_installation_dir}}/{{ jira_installer_name }}"
     mode: a+x
+- name: Extract Jira Archive
+  unarchive:
+    src: "{{ jira_installation_dir}}/{{ jira_installer_name }}"
+    dest: "{{ jira_installation_dir}}"
+    remote_src: yes
+  tags: test

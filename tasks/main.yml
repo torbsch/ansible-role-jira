@@ -1,4 +1,8 @@
 - name: Download Jira Installer
   get_url:
-    url: '{{ jira_installer_url }}'
+    url: "{{ jira_installer_url }}"
     dest: /tmp/
+- name: Make Jira Installer executable
+  file:
+    dest: "/tmp/{{ jira_installer_name }}"
+    mode: a+x

@@ -2,14 +2,15 @@
   get_url:
     url: "{{ jira_installer_url }}"
     dest: "{{ tmp}}"
+  tags: download
 - name: Make Jira Installer executable
   file:
     path: "{{ tmp}}/{{ jira_installer_name }}"
     mode: a+x
 - name: Extract Jira Archive
   unarchive:
-    src: "{{ tmp}}/{{ jira_installer_name }}"
-    path: "{{ tmp}}"
+    src: "{{ tmp }}/{{ jira_installer_name }}"
+    dest: "{{ tmp }}"
     remote_src: yes
 - name: Add Jira group
   group:
@@ -33,3 +34,12 @@
     owner: "{{ jira_user }}"
     group: "{{ jira_user_group }}"
     mode: u=rwx,go-rwx
+- name: Install Java
+  apt:
+    name: default-jre
+    state: latest
+    update_cache: yes
+  tags: test
+- name: Start Jira Instance
+  shell: "{{ jira_installation_dir }}/bin/start-jira.sh"
+  tags: test

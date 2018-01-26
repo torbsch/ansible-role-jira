@@ -1,0 +1,4 @@
+- name: Download Jira Installer
+  get_url:
+    url: https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.7.0-x64.bin
+    dest: /tmp/

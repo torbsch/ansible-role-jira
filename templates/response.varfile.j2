@@ -1,9 +1,18 @@
-#install4j response file for JIRA Software 7.13.0
-#Fri Nov 30 20:41:42 CET 2018
-executeLauncherAction$Boolean=true
-app.install.service$Boolean=false
-sys.confirmedUpdateInstallationString=false
-launch.application$Boolean=true
-existingInstallationDir={{ jira_installation_folder }}
+# Jira response varfile for quiet installation
 sys.languageId=en
+app.install.service$Boolean=false
+launch.application$Boolean=true
+executeLauncherAction$Boolean=true
+
+# Folder
+existingInstallationDir={{ jira_installation_folder }}
 sys.installationDir={{ jira_installation_folder }}
+
+# Backup/Upgrade or Full Installation
+{% if jira_exists.stat.exists == true %}
+backupJira$Boolean=true
+sys.confirmedUpdateInstallationString=true
+{% else %}
+backupJira$Boolean=false
+sys.confirmedUpdateInstallationString=false
+{% endif %}

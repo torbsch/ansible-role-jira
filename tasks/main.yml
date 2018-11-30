@@ -13,17 +13,15 @@
     path: "{{ jira_installer_fullpath }}"
     mode: a+x
 
-- name: Ansible check file exists example.
+- name: Ansible check, if jira folder exists
   stat:
     path: "{{ jira_installation_root }}/jira"
   register: jira_exists
 
-- name: Create response.varfile for Jira first time installation
+- name: Create response.varfile for Jira quiet installation
   template:
     src: response.varfile.j2
     dest: "{{ jira_installation_root }}/response.varfile"
-  when: jira_exists.stat.exists == false
 
-- name: First time installation of Jira
+- name: Installation/Upgrade of Jira
   command: "{{ jira_installer_fullpath }} -q -varfile response.varfile"
-  when: jira_exists.stat.exists == false

@@ -1,50 +1,17 @@
 - name: Download Jira Installer
   get_url:
     url: "{{ jira_installer_url }}"
-    dest: "{{ tmp}}"
+    dest: "{{ tmp}}/{{ jira_installer_name }}"
 
 - name: Make Jira Installer executable
   file:
     path: "{{ tmp}}/{{ jira_installer_name }}"
     mode: a+x
 
-- name: Extract Jira Archive
-  unarchive:
-    src: "{{ tmp }}/{{ jira_installer_name }}"
-    dest: "{{ tmp }}"
-    remote_src: yes
+- name: Create response.varfile for Jira Installation
+  template:
+    src: response.varfile.j2
+    dest: "{{ tmp }}/response.varfile"
 
-- name: Add Jira group
-  group:
-    name: "{{ jira_user }}"
-    state: present
-
-- name: Add Jira User
-  user:
-    name: "{{ jira_user }}"
-    group: "{{ jira_user_group }}"
-
-- name: Set owner of jira installation directory to jira_user
-  file:
-    path: "{{ jira_installation_dir }}"
-    owner: "{{ jira_user }}"
-    group: "{{ jira_user_group }}"
-    mode: u=rwx,go-rwx
-    recurse: yes
-
-- name: Create Jira home directory
-  file:
-    path: "{{ jira_home_dir }}"
-    state: directory
-    owner: "{{ jira_user }}"
-    group: "{{ jira_user_group }}"
-    mode: u=rwx,go-rwx
-
-- name: Install Java
-  apt:
-    name: default-jre
-    state: latest
-    update_cache: yes
-
-- name: Start Jira Instance
-  shell: "{{ jira_installation_dir }}/bin/start-jira.sh"
+- name: Run Jira Installer
+  command: "{{ tmp}}/{{ jira_installer_name }} -q -varfile response.varfile"

@@ -1,17 +1,29 @@
+- name: Ensure Atlassian folder exists
+  file: 
+    path: "{{ jira_installation_root }}"
+    state: directory
+
 - name: Download Jira Installer
   get_url:
     url: "{{ jira_installer_url }}"
-    dest: "{{ tmp}}/{{ jira_installer_name }}"
+    dest: "{{ jira_installer_fullpath }}"
 
 - name: Make Jira Installer executable
   file:
-    path: "{{ tmp}}/{{ jira_installer_name }}"
+    path: "{{ jira_installer_fullpath }}"
     mode: a+x
 
-- name: Create response.varfile for Jira Installation
+- name: Ansible check file exists example.
+  stat:
+    path: "{{ jira_installation_root }}/jira"
+  register: jira_exists
+
+- name: Create response.varfile for Jira first time installation
   template:
     src: response.varfile.j2
-    dest: "{{ tmp }}/response.varfile"
+    dest: "{{ jira_installation_root }}/response.varfile"
+  when: jira_exists.stat.exists == false
 
-- name: Run Jira Installer
-  command: "{{ tmp}}/{{ jira_installer_name }} -q -varfile response.varfile"
+- name: First time installation of Jira
+  command: "{{ jira_installer_fullpath }} -q -varfile response.varfile"
+  when: jira_exists.stat.exists == false

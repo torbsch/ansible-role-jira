@@ -9,7 +9,7 @@ existingInstallationDir={{ jira_installation_folder }}
 sys.installationDir={{ jira_installation_folder }}
 
 # Backup/Upgrade or Full Installation
-{% if jira_exists.stat.exists == true %}
+{% if jiraFolder.stat.exists == true %}
 backupJira$Boolean=true
 sys.confirmedUpdateInstallationString=true
 {% else %}

@@ -1,6 +1,3 @@
 # Jira Installer
 jira_installer_name: atlassian-jira-software-7.13.0-x64.bin
 atlassian_root: /opt/atlassian
-jira_installation_folder: "{{ atlassian_root }}/jira" 
-jira_installer_folder: "{{ atlassian_root }}/jira-installer"
-jira_installer_fullpath: "{{ jira_installer_folder }}/{{ jira_installer_name }}"

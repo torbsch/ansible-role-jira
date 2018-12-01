@@ -2,3 +2,4 @@
 - import_tasks: preperation.yml
 - include_tasks: installation.yml
   when: (jiraFolder.stat.exists == false or jiraHasNewerVersion.changed == true)
+- import_tasks: backup.yml

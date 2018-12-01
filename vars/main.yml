@@ -1,5 +1,9 @@
 ---
+# Installer
 jira_installer_url: "https://www.atlassian.com/software/jira/downloads/binary/{{ jira_installer_name }}"
+jira_installer_fullpath: "{{ jira_installer_folder }}/{{ jira_installer_name }}"
+
+# Folder
 jira_installation_folder: "{{ atlassian_root }}/jira" 
 jira_installer_folder: "{{ atlassian_root }}/jira-installer"
-jira_installer_fullpath: "{{ jira_installer_folder }}/{{ jira_installer_name }}"
+jira_backup_folder: "{{ atlassian_root }}/jira-backup"

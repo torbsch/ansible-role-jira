@@ -1,0 +1,17 @@
+---
+
+- name: Recursively find backup files
+  find:
+    paths: "{{ atlassian_root}}"
+    patterns:  "*.zip"
+  register: backup_files
+
+- name: Ensure Backup folder exists
+  file:
+    path: "{{ jira_backup_folder}}"
+    state: directory
+
+- name: Move bakcup files to backup folder
+  shell: "mv {{ item.path }} {{ jira_backup_folder }}/" 
+  with_items: "{{ backup_files.files }}"
+  when: "backup_files.matched > 0"

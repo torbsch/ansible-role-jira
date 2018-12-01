@@ -2,7 +2,7 @@
 - name: Create response.varfile for Jira quiet installation
   template:
     src: response.varfile.j2
-    dest: "{{ jira_installation_root }}/response.varfile"
+    dest: "{{ jira_installer_folder }}/response.varfile"
   
 - name: Installation/Upgrade of Jira
   command: "{{ jira_installer_fullpath }} -q -varfile response.varfile"

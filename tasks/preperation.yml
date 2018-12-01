@@ -1,0 +1,22 @@
+---
+- name: Ensure Atlassian folder exists
+  file: 
+    path: "{{ jira_installation_root }}"
+    state: directory
+
+- name: Download Jira Installer
+  get_url:
+    url: "{{ jira_installer_url }}"
+    dest: "{{ jira_installer_fullpath }}"
+  register: jiraHasNewerVersion
+
+- name: Make Jira Installer executable
+  file:
+    path: "{{ jira_installer_fullpath }}"
+    mode: a+x
+  when: jiraHasNewerVersion == true
+
+- name: Check, if jira folder exists
+  stat:
+    path: "{{ jira_installation_root }}/jira"
+  register: jiraFolder

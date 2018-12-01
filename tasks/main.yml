@@ -1,30 +1,4 @@
-- name: Ensure Atlassian folder exists
-  file: 
-    path: "{{ jira_installation_root }}"
-    state: directory
-
-- name: Download Jira Installer
-  get_url:
-    url: "{{ jira_installer_url }}"
-    dest: "{{ jira_installer_fullpath }}"
-  register: jiraHasNewerVersion
-
-- name: Make Jira Installer executable
-  file:
-    path: "{{ jira_installer_fullpath }}"
-    mode: a+x
-  when: jiraHasNewerVersion == true
-
-- name: Check, if jira folder exists
-  stat:
-    path: "{{ jira_installation_root }}/jira"
-  register: jiraFolder
-
-- name: Create response.varfile for Jira quiet installation
-  template:
-    src: response.varfile.j2
-    dest: "{{ jira_installation_root }}/response.varfile"
-
-- name: Installation/Upgrade of Jira
-  command: "{{ jira_installer_fullpath }} -q -varfile response.varfile"
+---
+- import_tasks: preperation.yml
+- include_tasks: installation.yml
   when: (jiraFolder.stat.exists == false or jiraHasNewerVersion.changed == true)

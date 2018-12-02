@@ -5,4 +5,4 @@
 - import_tasks: backup.yml
 
 - import_tasks: configure-reverseproxy.yml
-  when: reverseProxy == true
+  when: jiraWithReverseProxy == true

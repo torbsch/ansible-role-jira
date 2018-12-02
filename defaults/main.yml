@@ -1,3 +1,12 @@
-# Jira Installer
+# Paths
 jira_installer_name: atlassian-jira-software-7.13.0-x64.bin
 atlassian_root: /opt/atlassian
+jiraHomePath: /var/atlassian/apllication-data/jira
+
+# Ports
+differentPorts: false
+rmiPort: 8005
+httpPort: 8080
+
+# Stuff
+jiraAsService: true

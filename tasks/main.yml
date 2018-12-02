@@ -3,3 +3,6 @@
 - include_tasks: installation.yml
   when: (jiraFolder.stat.exists == false or jiraHasNewerVersion.changed == true)
 - import_tasks: backup.yml
+
+- import_tasks: configure-reverseproxy.yml
+  when: reverseProxy == true

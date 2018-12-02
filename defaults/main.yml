@@ -10,3 +10,5 @@ httpPort: 8080
 
 # Stuff
 jiraAsService: true
+reverseProxy: true
+server_baseurl: jira.example.com

@@ -1,0 +1,6 @@
+---
+- name: Configure using of a reverse proxy
+  template:
+    src: server.xml.j2
+    dest: "{{ jira_installation_folder }}/conf/server.xml"
+  notify: Restart Jira    

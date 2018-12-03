@@ -26,7 +26,7 @@ Available variables are listed below. Most of them are saved as role defaults (s
     rmiPort: 8005
     httpPort: 8080
 
-### Example Playbook
+## Example Playbook
     - hosts: jira
       become: yes
       roles:

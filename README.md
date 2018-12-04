@@ -14,6 +14,7 @@ No special requirements; note that this role requires root access, so either run
 
 ## Role Variables
 Available variables are listed below. Most of them are saved as role defaults (see `defaults/main.yml`):  
+### Installation
     jira_installer_name: atlassian-jira-software-7.13.0-x64.bin  
     jiraAsService: true 
     jiraWithReverseProxy: false  

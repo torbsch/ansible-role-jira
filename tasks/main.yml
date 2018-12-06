@@ -6,3 +6,8 @@
 
 - import_tasks: configure-reverseproxy.yml
   when: jiraWithReverseProxy == true
+
+- import_tasks: database.yml
+  become_user: postgres
+  vars: 
+    ansible_ssh_pipelining: true
